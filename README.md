@@ -2,7 +2,7 @@
 
 [![Docker Hub](https://img.shields.io/docker/v/swilli23/govee-lan-bridge?sort=semver&label=docker%20hub&logo=docker)](https://hub.docker.com/r/swilli23/govee-lan-bridge)
 [![Image size](https://img.shields.io/docker/image-size/swilli23/govee-lan-bridge/2?logo=docker)](https://hub.docker.com/r/swilli23/govee-lan-bridge)
-[![Tests and image](https://github.com/SamWiIIiams/govee-lan-bridge/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/SamWiIIiams/govee-lan-bridge/actions/workflows/docker-publish.yml)
+[![Tests and image](https://github.com/JinjAdmin/govee-lan-bridge/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/JinjAdmin/govee-lan-bridge/actions/workflows/docker-publish.yml)
 
 Per-section and per-segment control of Govee lights from Home Assistant, **LAN only**: no Govee cloud,
 no API key, no internet connection.
@@ -51,7 +51,7 @@ The Ceiling Light Pro's main light and background ring can be switched and colou
 commands come from the app-derived device data in
 [govee-ble-local](https://github.com/Brady-Woods/govee-ble-local) (verified there over Bluetooth); they
 haven't been confirmed over LAN yet, so if you have an H60A6, please try it and report what works in an
-[issue](https://github.com/SamWiIIiams/govee-lan-bridge/issues).
+[issue](https://github.com/JinjAdmin/govee-lan-bridge/issues).
 
 | Entity | Controls |
 |---|---|
