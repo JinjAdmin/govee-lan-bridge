@@ -1,0 +1,54 @@
+configuration:
+  MQTT_HOST:
+    name: MQTT-Host
+    description: Hostname oder IP-Adresse des MQTT-Brokers.
+  MQTT_PORT:
+    name: MQTT-Port
+  MQTT_USER:
+    name: MQTT-Benutzer
+    description: Leer lassen, wenn der Broker keine Anmeldung verlangt.
+  MQTT_PASS:
+    name: MQTT-Passwort
+    description: Entweder dieses Feld oder MQTT_PASS_FILE verwenden, nicht beide.
+  MQTT_PASS_FILE:
+    name: MQTT-Passwortdatei
+    description: Pfad zu einer Datei mit dem Broker-Passwort, z. B. /config/mqtt_pass.
+  GOVEE2MQTT_URL:
+    name: govee2mqtt-URL
+    description: Basis-URL von govee2mqtt; automatische Geräteerkennung ist optional.
+  CONFIG_PATH:
+    name: Pfad zu devices.toml
+    description: Einen Pfad unter /config verwenden, damit die Datei persistent bleibt.
+  DISCOVERY_INTERVAL:
+    name: Erkennungsintervall
+    description: Sekunden zwischen Aktualisierungen über govee2mqtt.
+  DISCOVERY_PREFIX:
+    name: MQTT-Discovery-Präfix
+  BATCH_WINDOW:
+    name: Befehls-Bündelungsfenster
+    description: Sekunden, in denen Lampenbefehle zusammengefasst werden.
+  MAX_FRAMES_PER_PACKET:
+    name: Maximale Frames pro Paket
+  devices:
+    name: Manuell konfigurierte Geräte
+    description: Einträge werden anhand der Geräte-ID in devices.toml zusammengeführt und beim Entfernen hier nicht gelöscht.
+    fields:
+      id:
+        name: Govee-Geräte-ID
+      sku:
+        name: Modell/SKU
+      ip:
+        name: IP-Adresse
+        description: Optional; govee2mqtt kann sie erkennen oder aktualisieren.
+      key:
+        name: Entity-Schlüssel
+      name:
+        name: Gerätename
+      room:
+        name: Raum
+      enabled:
+        name: Aktiviert
+      family:
+        name: Befehlsfamilie
+      segments:
+        name: Anzahl der Segmente

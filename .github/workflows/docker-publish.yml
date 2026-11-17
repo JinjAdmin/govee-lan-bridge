@@ -19,6 +19,8 @@ jobs:
           python-version: "3.12"
       - name: Offline tests (frames vs. captured app commands, safety rules)
         run: python test_bridge.py
+      - name: Home Assistant app configuration tests
+        run: python -m unittest test_homeassistant_app
 
   publish:
     needs: test

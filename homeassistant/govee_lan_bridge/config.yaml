@@ -1,0 +1,49 @@
+name: Govee LAN Bridge
+version: "0.1.0"
+slug: govee_lan_bridge
+description: Per-section and per-segment control of Govee lights over LAN via MQTT discovery
+url: https://github.com/JinjAdmin/govee-lan-bridge/tree/main/homeassistant/govee_lan_bridge
+arch:
+  - amd64
+  - aarch64
+startup: application
+boot: auto
+init: true
+map:
+  - type: app_config
+    read_only: false
+options:
+  MQTT_HOST: 127.0.0.1
+  MQTT_PORT: 1883
+  MQTT_USER: ""
+  MQTT_PASS: ""
+  MQTT_PASS_FILE: ""
+  GOVEE2MQTT_URL: http://127.0.0.1:8056
+  CONFIG_PATH: /config/devices.toml
+  DISCOVERY_INTERVAL: 600
+  DISCOVERY_PREFIX: homeassistant
+  BATCH_WINDOW: 0.15
+  MAX_FRAMES_PER_PACKET: 12
+  devices: []
+schema:
+  MQTT_HOST: str
+  MQTT_PORT: port
+  MQTT_USER: str
+  MQTT_PASS: password
+  MQTT_PASS_FILE: str
+  GOVEE2MQTT_URL: url
+  CONFIG_PATH: str
+  DISCOVERY_INTERVAL: "int(1,)"
+  DISCOVERY_PREFIX: str
+  BATCH_WINDOW: "float(0,)"
+  MAX_FRAMES_PER_PACKET: "int(1,)"
+  devices:
+    - id: str
+      sku: str
+      ip: "str?"
+      key: "str?"
+      name: "str?"
+      room: "str?"
+      enabled: "bool?"
+      family: "list(segments|sections)?"
+      segments: "int(1,56)?"
