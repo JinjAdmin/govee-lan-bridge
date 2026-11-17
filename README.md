@@ -70,52 +70,6 @@ services:
       GOVEE2MQTT_URL: http://127.0.0.1:8056
 ```
 
-## Home Assistant App
-
-This repository also contains an installable **Home Assistant App** (formerly add-on). It is an app
-repository, not a custom integration or HACS project. In Home Assistant, add this repository URL:
-
-```text
-https://github.com/jluenne/govee-lan-bridge#feature/home-assistant-app
-```
-
-Install **Govee LAN Bridge** from the app store, then configure it in the app's Configuration tab.
-Every Docker environment variable in the table below is available there. The app reads
-`/data/options.json` itself; the Supervisor does not implicitly turn app options into environment
-variables. Restart the app after changing its configuration.
-
-The app configuration supports structured **Manually configured devices** entries (one entry per
-device), rather than a multiline TOML text box: Home Assistant's current app schema has text, password,
-number, toggle and nested list/object fields, but no multiline text field. Each entry requires a Govee
-device ID and SKU; IP, key, name, room, enabled, family and segment count are optional. Entries are
-merged into the persistent `/config/devices.toml` by device ID. Non-empty GUI fields update matching
-entries; blank fields leave existing values unchanged. Existing entries and comments are kept, and
-removing an item from the GUI does not delete it from the file. To clear a field or remove a device,
-edit `/config/devices.toml` explicitly with a Home Assistant file editor. If that file contains invalid
-TOML, the app logs a clear error and leaves it untouched.
-
-Automatic discovery and manual configuration work together: govee2mqtt adds discovered lights and
-refreshes their IP addresses; GUI entries provide or override manual fields for the same device ID, or
-add devices not listed by govee2mqtt. If govee2mqtt is unavailable, the bridge continues from
-`devices.toml`. Use a `CONFIG_PATH` under `/config` in the app so the file survives restarts and app
-updates.
-
-The app uses the normal Home Assistant app network, not host networking. It sends Govee LAN commands
-as outbound UDP to each light on port 4003; it does not listen on a host port or need privileged
-capabilities. Configure `MQTT_HOST` and `GOVEE2MQTT_URL` with hostnames/IPs reachable from apps (for
-example `core-mosquitto` for the official Mosquitto app and the govee2mqtt app's internal hostname,
-rather than `127.0.0.1`). The previous defaults
-(`127.0.0.1`, MQTT port `1883`, and govee2mqtt port `8056`) are retained for compatibility; localhost
-inside the app container refers to the app itself, so change the host values when those services run
-in other containers. Set the MQTT discovery prefix to the same value as the Home Assistant MQTT
-integration, usually `homeassistant`.
-
-The app supports `amd64` and Home Assistant's `aarch64` architecture (the Docker image uses `arm64`).
-Its Dockerfile extends the existing public multi-architecture `swilli23/govee-lan-bridge:2` image and
-adds only the app-options/startup helper; the bridge code is not duplicated. Home Assistant builds the
-small app image locally, so this repository does not require registry credentials. The existing
-Dockerfile and Compose instructions above remain unchanged.
-
 | Variable | Default | |
 |---|---|---|
 | `MQTT_HOST` / `MQTT_PORT` | `127.0.0.1` / `1883` | Broker |
@@ -127,6 +81,41 @@ Dockerfile and Compose instructions above remain unchanged.
 | `DISCOVERY_PREFIX` | `homeassistant` | MQTT discovery prefix |
 | `BATCH_WINDOW` | `0.15` | Seconds within which commands are merged into one change |
 | `MAX_FRAMES_PER_PACKET` | `12` | Commands per LAN packet before splitting |
+
+## Home Assistant App
+
+This repository also contains an installable **Home Assistant App** (formerly add-on). It is an app
+repository, not a custom integration or HACS project. In Home Assistant, settings -> apps, add this repository URL:
+
+```text
+https://github.com/JinjAdmin/govee-lan-bridge
+```
+
+Install **Govee LAN Bridge**, then configure it in the app's Configuration tab.
+Every Docker environment variable in the table above is available there.
+
+The app configuration supports structured **Manually configured devices** entries (one entry per
+device). Each entry requires a Govee device ID and SKU; IP, key, name, room, enabled, family and segment count 
+are optional. Entries are merged into the persistent `/config/devices.toml` by device ID. 
+Non-empty GUI fields update matching entries; blank fields leave existing values unchanged. 
+Existing entries and comments are kept, and removing an item from the GUI does not delete it from the file. 
+To clear a field or remove a device, edit `/config/devices.toml` manually. 
+If that file contains invalid TOML, the app logs a clear error and leaves it untouched.
+
+The app uses the normal Home Assistant app network, not host networking. It sends Govee LAN commands
+as outbound UDP to each light on port 4003; it does not listen on a host port or need privileged
+capabilities. Configure `MQTT_HOST` and `GOVEE2MQTT_URL` with hostnames/IPs reachable from apps (for
+example `core-mosquitto` for the official Mosquitto app and the govee2mqtt app's internal hostname,
+rather than `127.0.0.1`). The previous defaults
+(`127.0.0.1`, MQTT port `1883`, and govee2mqtt port `8056`) are retained for compatibility; localhost
+inside the app container refers to the app itself, so change the host values. 
+Set the MQTT discovery prefix to the same value as the Home Assistant MQTT integration, usually `homeassistant`.
+
+The app supports `amd64` and Home Assistant's `aarch64` architecture (the Docker image uses `arm64`).
+Its Dockerfile extends the existing public multi-architecture `swilli23/govee-lan-bridge:2` image and
+adds only the app-options/startup helper; the bridge code is not duplicated. Home Assistant builds the
+small app image locally, so this repository does not require registry credentials. The existing
+Dockerfile and Compose instructions above remain unchanged.
 
 ## devices.toml
 Nothing to set up: the bridge creates this file on first start and maintains it. Every light govee2mqtt

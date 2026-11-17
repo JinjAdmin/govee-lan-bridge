@@ -2,7 +2,7 @@ name: Govee LAN Bridge
 version: "0.1.0"
 slug: govee_lan_bridge
 description: Per-section and per-segment control of Govee lights over LAN via MQTT discovery
-url: https://github.com/jluenne/govee-lan-bridge/tree/feature/home-assistant-app/homeassistant/govee_lan_bridge
+url: https://github.com/JinjAdmin/govee-lan-bridge/tree/main/homeassistant/govee_lan_bridge
 arch:
   - amd64
   - aarch64
