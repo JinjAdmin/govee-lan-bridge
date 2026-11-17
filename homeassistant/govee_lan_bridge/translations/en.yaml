@@ -1,0 +1,54 @@
+configuration:
+  MQTT_HOST:
+    name: MQTT host
+    description: Hostname or IP address of the MQTT broker.
+  MQTT_PORT:
+    name: MQTT port
+  MQTT_USER:
+    name: MQTT username
+    description: Leave blank if the broker does not require authentication.
+  MQTT_PASS:
+    name: MQTT password
+    description: Use this or MQTT_PASS_FILE, not both.
+  MQTT_PASS_FILE:
+    name: MQTT password file
+    description: Path to a file containing the broker password, for example /config/mqtt_pass.
+  GOVEE2MQTT_URL:
+    name: govee2mqtt URL
+    description: Base URL of govee2mqtt; automatic device discovery is optional.
+  CONFIG_PATH:
+    name: devices.toml path
+    description: Use a path under /config so the file remains persistent.
+  DISCOVERY_INTERVAL:
+    name: Discovery interval
+    description: Seconds between automatic govee2mqtt refreshes.
+  DISCOVERY_PREFIX:
+    name: MQTT discovery prefix
+  BATCH_WINDOW:
+    name: Command batch window
+    description: Seconds in which light commands are grouped together.
+  MAX_FRAMES_PER_PACKET:
+    name: Maximum frames per packet
+  devices:
+    name: Manually configured devices
+    description: Entries are merged by device ID into devices.toml and are never removed by deleting them here.
+    fields:
+      id:
+        name: Govee device ID
+      sku:
+        name: Model/SKU
+      ip:
+        name: IP address
+        description: Optional; govee2mqtt can discover or update it automatically.
+      key:
+        name: Entity key
+      name:
+        name: Device name
+      room:
+        name: Room
+      enabled:
+        name: Enabled
+      family:
+        name: Command family
+      segments:
+        name: Number of segments
